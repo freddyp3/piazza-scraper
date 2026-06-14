@@ -35,7 +35,7 @@ def format_post(post):
     output += post_title + "\n" + post_content + "\n"
     output += format_children_helper(post["children"])
 
-    return (post_title, output)
+    return (post_title + ".md", output)
 
 def normalize_type_of_post(type):
     if type == "question":
@@ -125,9 +125,9 @@ if __name__ == "__main__":
 
     post = network.get_post(11)
 
-    title, formatted_post = format_post(post)
+    file_name, formatted_post = format_post(post)
     formatted_post = format_imgs(formatted_post, p._rpc_api.session)
 
     os.makedirs("output/md_files", exist_ok=True)
-    with open("output/md_files/test.md", "w") as f:
+    with open("output/md_files/" + file_name, "w") as f:
         f.write(formatted_post)
